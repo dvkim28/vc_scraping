@@ -1,0 +1,26 @@
+{% extends 'scraping/base/base.html' %}
+{% block title %} Updating {% endblock %}
+
+{% block body %}
+{% for i in vacancies %}
+<div class="card my-3">
+    <h5 class="card-header">{{i.title}}</h5>
+    <div class="card-body">
+        <h5 class="card-title">{{i.city}}</h5>
+        <p class="card-text"> {{i.description}}</p>
+        <p>{{i.language.name}} | {{ i.timestamp|date:"d / M / Y "  }}year</p>
+        <a href="{{i.url}}" class="btn btn-primary">Visit</a>
+    </div>
+</div>
+{%endfor%}
+
+<form action="" method="GET">
+    {% csrf_token %}
+  <label>City:</label><br>
+  <input type="text" name="city"><br>
+    <label>Language:</label><br>
+  <input type="text" name="language"><br>
+    <input type="submit" value="submit">
+</form>
+
+{%endblock%}
