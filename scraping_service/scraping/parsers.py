@@ -25,22 +25,22 @@ def work(url):
     if resp.status_code == 200:
         soup = BS(resp.content, 'html.parser')
         main_div = soup.find('div', attrs={'id': 'pjax-job-list'})
-        div_list = main_div.find_all('div', attrs={'class': 'job-link'})
+        div_list = main_div.find_all('div', attrs={'class': 'card card-hover card-visited wordwrap job-link'})
         for div in div_list:
             title = div.find('h2')
-            href = title.a['href']
-            content = div.p.text
+            url = title.a['href']
+            description = div.p.text
             company = 'No name'
             logo = div.find('img')
             if logo:
                 company = logo['alt']
             jobs.append({
                 'title': title.text,
-                'url': domain + href,
+                'url': domain + url,
                 'company': company,
-                'description': content})
-    else:
-        errors.append({'url': domain + href, 'title': "Page not found"})
+                'description': description})
+        else:
+            errors.append({'url': domain + url, 'title': "Page not found"})
     return errors, jobs
 
 
@@ -55,17 +55,18 @@ def jooble(url):
         article = main_div.find_all('article')
         for div in article:
             title = div.find('a').text
-            href = div.find('a', attrs={
-                'class': 'jkit_Efecu jkit_ff9zU hyperlink_appearance_undefined jkit__gDKk g2JQMz'}).get('href')
-            content = div.find('div', attrs={'class': 'PAM72f'}).text
-            company = div.find('div', attrs={'class': 'heru4z'}).text
-        else:
-            errors.append({'url': domain + href, 'title': "Page not found"})
+            url = str(div.find('a', attrs={
+                'class': 'jkit_Efecu jkit_ff9zU hyperlink_appearance_undefined jkit__gDKk g2JQMz'}))
+            description = div.find('div', attrs={'class': 'PAM72f'})
+            company = div.find('div', attrs={'class': 'heru4z'})
             jobs.append({
                 'title': title,
-                'url': domain + href,
+                'url': domain + url,
                 'company': company,
-                'description': content})
+                'description': description})
+        else:
+            errors.append({'url': domain + url, 'title': "Page not found"})
+
     return errors, jobs
 
 

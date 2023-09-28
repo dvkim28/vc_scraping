@@ -15,6 +15,7 @@ class City(models.Model):
     )
 
     class Meta:
+        app_label = 'scraping'
         verbose_name = ('City name')
         verbose_name_plural = ('Cities name')
 
@@ -39,6 +40,7 @@ class Language(models.Model):
     )
 
     class Meta:
+        app_label = 'language'
         verbose_name = ('Programming language ')
         verbose_name_plural = ('Programming languages')
 
@@ -81,6 +83,7 @@ class Vacancy(models.Model):
     )
 
     class Meta:
+        app_label = 'scraping'
         verbose_name = ('Vacancy ')
         verbose_name_plural = ('Vacancies')
 
