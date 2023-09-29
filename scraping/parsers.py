@@ -56,7 +56,7 @@ def jooble(url):
         for div in article:
             title = div.find('a').text
             url = str(div.find('a', attrs={
-                'class': 'jkit_Efecu jkit_ff9zU hyperlink_appearance_undefined jkit__gDKk g2JQMz'}))
+                'class': 'jkit_Efecu jkit_ff9zU hyperlink_appearance_undefined jkit__gDKk g2JQMz'})['href'])
             description = div.find('div', attrs={'class': 'PAM72f'}).text
             company = div.find('div', attrs={'class': 'heru4z'}).text
             jobs.append({
