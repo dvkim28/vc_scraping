@@ -15,7 +15,7 @@ def home_view(request):
             _filter['city__slug'] = city
         if language:
             _filter['language__slug'] = language
-        qs = Vacancy.objects.filter(**_filter)
+        qs = Vacancy.objects.filter(**_filter).order_by('-id')
     return render(request, 'scraping/home.html', {
         'vacancies': qs,
         'form': form

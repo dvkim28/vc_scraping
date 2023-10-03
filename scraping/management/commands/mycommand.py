@@ -1,6 +1,6 @@
 from django.core.management import BaseCommand
 
-from scraping.models import City, Vacancy, Language
+from scraping.models import City, Vacancy, Language, Error
 from scraping.parsers import work, jooble
 
 class Command(BaseCommand):
@@ -24,3 +24,6 @@ class Command(BaseCommand):
             except Vacancy.DoesNotExist:
                 obj = Vacancy(**job, city=city, language=language)
                 obj.save()
+        if errors:
+            er = Error(data=errors).save()
+
